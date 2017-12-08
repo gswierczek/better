@@ -2,6 +2,9 @@ package com.codistica.better.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,19 +13,21 @@ import java.util.List;
  * Created on 2017-12-08
  * Contact g.swierczek@gmail.com
  */
-
+@Entity
 @Data
 public class Coupon {
+
+    @Id
     private Integer id;
     private BigDecimal stake;
-    private List<Bet> bets;
+    private String bet;
 
     public Coupon() {
     }
 
-    public Coupon(Integer id, BigDecimal stake, List<Bet> bets) {
+    public Coupon(Integer id, BigDecimal stake, String bet) {
         this.id = id;
         this.stake = stake;
-        this.bets = bets;
+        this.bet = bet;
     }
 }

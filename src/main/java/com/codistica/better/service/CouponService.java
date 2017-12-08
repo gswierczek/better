@@ -2,6 +2,8 @@ package com.codistica.better.service;
 
 import com.codistica.better.model.Bet;
 import com.codistica.better.model.Coupon;
+import com.codistica.better.repository.CouponRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,37 +24,35 @@ import static com.codistica.better.model.Pick.HOME;
 @Service
 public class CouponService {
 
+    @Autowired
+    private CouponRepository couponRepository;
+
     private List<Coupon> coupons = new ArrayList<>(Arrays.asList(
-                    new Coupon(1, BigDecimal.valueOf(1000), Arrays.asList(
-                                    new Bet(HOME, 1.30, WON))),
-                    new Coupon(2, BigDecimal.valueOf(2000), Arrays.asList(
-                                    new Bet(AWAY, 1.45, WON),
-                                    new Bet(HOME, 1.25, WON)))
+                    new Coupon(1, BigDecimal.valueOf(1000),
+                                    "WON"),
+                    new Coupon(2, BigDecimal.valueOf(2000),
+                                    "WON")
     ));
 
     public List<Coupon> getAll() {
+        List<Coupon> coupons = new ArrayList<>();
+        couponRepository.findAll().forEach(coupons::add);
         return coupons;
     }
 
     public Coupon getCouponById(Integer id) {
-        return coupons.stream().filter(c -> c.getId().equals(id)).findFirst().get();
+        return couponRepository.findOne(id);
     }
 
     public void createCoupon(Coupon coupon) {
-        coupons.add(coupon);
+        couponRepository.save(coupon);
     }
 
     public void updateCoupon(Coupon coupon, Integer id) {
-        for (int i = 0; i < coupons.size(); i++) {
-            Coupon c = coupons.get(i);
-            if (c.getId().equals(id)) {
-                coupons.set(i, coupon);
-                return;
-            }
-        }
+        couponRepository.save(coupon);
     }
 
     public void deleteCoupon(Integer id) {
-        coupons.removeIf(c -> c.getId().equals(id));
+        couponRepository.delete(id);
     }
 }
