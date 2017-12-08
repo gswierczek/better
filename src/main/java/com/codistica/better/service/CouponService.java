@@ -27,13 +27,6 @@ public class CouponService {
     @Autowired
     private CouponRepository couponRepository;
 
-    private List<Coupon> coupons = new ArrayList<>(Arrays.asList(
-                    new Coupon(1, BigDecimal.valueOf(1000),
-                                    "WON"),
-                    new Coupon(2, BigDecimal.valueOf(2000),
-                                    "WON")
-    ));
-
     public List<Coupon> getAll() {
         List<Coupon> coupons = new ArrayList<>();
         couponRepository.findAll().forEach(coupons::add);

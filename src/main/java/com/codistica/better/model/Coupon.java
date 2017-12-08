@@ -20,14 +20,14 @@ public class Coupon {
     @Id
     private Integer id;
     private BigDecimal stake;
-    private String bet;
+    private List<Bet> bets;
 
     public Coupon() {
     }
 
-    public Coupon(Integer id, BigDecimal stake, String bet) {
+    public Coupon(Integer id, BigDecimal stake, List<Bet> bets) {
         this.id = id;
         this.stake = stake;
-        this.bet = bet;
+        this.bets = bets;
     }
 }
