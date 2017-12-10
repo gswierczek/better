@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Bet {
+
     @Id
     private Integer id;
     private Pick pick;
